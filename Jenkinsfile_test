@@ -1,0 +1,40 @@
+pipeline {
+agent any
+environment { workdir = '/var/tmp/'}
+    stages {
+        stage('First Stage') {
+            steps {
+                echo "Jenkins workdir environment variable is: ${env.workdir}"
+            }
+        }
+        stage('Parallel stage'){
+            when { equals expected: 2, actual: 2 }
+            parallel {
+                stage('Parallel stage 1'){
+                    steps{
+                        script{
+                            def teams = ['fb', 'gs', 'bjk', 'ts']
+                            for (int i = 0; i < teams.size(); ++i) {
+                            echo "${i+1} - ${teams[i]}"
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        stage('Last Stage'){
+            options {
+            timeout(time: 1, unit: 'MINUTES') 
+            }
+            steps{
+                sleep 15
+            }
+        }
+    }
+    post {
+        always {
+	        echo "Pipeline finished"
+        }
+    }
+}
