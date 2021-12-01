@@ -13,9 +13,9 @@ environment { workdir = '/var/tmp/'}
                 stage('Parallel stage 1'){
                     steps{
                         script{
-                            def teams = ['fb', 'gs', 'bjk', 'ts']
-                            for (int i = 0; i < teams.size(); ++i) {
-                            echo "${i+1} - ${teams[i]}"
+                             def ayrilanEkip = ['erdi', 'aslı', 'duygu', 'mehmet', 'kürşad', 'dilek', 'şeyda']
+                                                       for (int i = 0; i < ayrilanEkip.size(); ++i) {
+                                                       echo "Yolunuz açık olun 00${i+1} - ${ayrilanEkip[i]}"
                             }
                         }
                     }
